@@ -23,8 +23,12 @@ const Feed = () => {
   const [posts, setPosts] = useState([])
   const handleSearchChange = (e)=> {
     setSearchText(e.target.value)
+    searchByPrompt()
   }
 
+  const searchByPrompt = (text)=>{
+    console.log(posts);
+  }
   useEffect(()=>{
     const fetchposts = async ()=> {
       const response = await fetch('/api/prompt');
