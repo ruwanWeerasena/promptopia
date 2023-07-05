@@ -9,6 +9,7 @@ const MyPofile = () => {
 
     const {data:session} = useSession();
     const [ posts , setPosts] = useState([])
+    const router = useRouter();
     useEffect(()=>{
         const fetchposts = async ()=> {
           const response = await fetch(`/api/users/${session?.user.id}/posts`);
@@ -17,12 +18,24 @@ const MyPofile = () => {
         }
         session?.user.id && fetchposts();
       },[])
-    const handleEdit = ()=>{
-
+    const handleEdit = (post)=>{
+        router.push(`/update-prompt?id=${post._id}`);
     }
 
-    const handleDelete = ()=>{
-
+    const handleDelete = async (post)=>{
+      const hasConfirmed = confirm("Are You Sure to Delete This Prompt");
+      if(hasConfirmed){
+        try {
+          const response = await fetch(`/api/prompt/${post._id.toString()}`,{
+            method:'DELETE',
+          });
+          const filteredPosts = posts.filter((p)=>p._id !== post._id)
+          setPosts(filteredPosts);
+          
+        } catch (error) {
+          console.log(error)
+        }
+      }
     }
   return (
     <Profile    

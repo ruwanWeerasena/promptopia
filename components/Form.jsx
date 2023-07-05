@@ -55,11 +55,9 @@ const Form = ({type,post,submitting,handleSubmit,setPost}) => {
             </Link>
             <button
               type="submit"
-              // disabled={submitting}
+              disabled={submitting}
               className='px-5 py-1.5 text-sm bg-primary-orange rounded-full text-white'
-              onClick={(e)=>
-                console.log("hi")
-                }
+              
             >
               {submitting? `${type}...`: type}
             </button>
